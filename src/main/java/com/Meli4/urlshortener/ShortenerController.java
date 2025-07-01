@@ -43,7 +43,12 @@ public class ShortenerController {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(urlEntityService.getUrlWithAnalytics(code));
+        UrlEntityStats stats = urlEntityService.getUrlWithAnalytics(code);
+        if(stats == null) {
+            return ResponseEntity.notFound().build(); // or create empty stats
+        }
+
+        return ResponseEntity.ok().body(stats);
     }
 
     @PostMapping("/shorten/{code}")

@@ -16,6 +16,14 @@ public class UrlEntityStats {
 
     private int accessCount;
 
+    public UrlEntity getUrlEntity(){
+        return urlEntity;
+    }
+
+    public void setUrlEntity(UrlEntity urlEntity){
+        this.urlEntity = urlEntity;
+    }
+
     public int getAccessCount(){
         return accessCount;
     }

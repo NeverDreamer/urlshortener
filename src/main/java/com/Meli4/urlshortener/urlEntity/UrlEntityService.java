@@ -28,7 +28,14 @@ public class UrlEntityService {
         urlEntity.setCreatedAt(time);
         urlEntity.setUpdatedAt(time);
 
-        return urlEntityRepository.save(urlEntity);
+        urlEntityRepository.save(urlEntity);
+
+        UrlEntityStats stats = new UrlEntityStats();
+        stats.setUrlEntity(urlEntity);
+        stats.setAccessCount(0);
+        urlEntityStatsRepository.save(stats);
+
+        return urlEntity;
     }
 
     @Transactional
@@ -51,7 +58,7 @@ public class UrlEntityService {
 
     @Transactional(readOnly = true)
     public UrlEntity findByShortCode(String shortCode) {
-        return urlEntityRepository.findByShortCode(shortCode).get(0);
+        return urlEntityRepository.findByShortCode(shortCode).orElse(null);
     }
 
     @Transactional(readOnly = true)

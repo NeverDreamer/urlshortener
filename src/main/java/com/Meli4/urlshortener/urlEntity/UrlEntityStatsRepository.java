@@ -17,6 +17,6 @@ public interface UrlEntityStatsRepository extends JpaRepository<UrlEntityStats, 
     Optional<UrlEntityStats> findByUrlEntityId(Long urlEntityId);
 
     @Modifying
-    @Query("UPDATE UrlEntityStats s SET s.accessCount = s.accessCount + 1")
+    @Query("UPDATE UrlEntityStats s SET s.accessCount = s.accessCount + 1 WHERE s.urlEntity.id = :urlId")
     void incrementAccessCount(@Param("urlId") Long urlId);
 }

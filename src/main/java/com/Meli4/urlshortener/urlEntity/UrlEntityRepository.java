@@ -8,11 +8,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
+import java.util.Optional;
 
 @RepositoryRestResource(collectionResourceRel = "urlEntites", path = "urlEntites")
 public interface UrlEntityRepository extends JpaRepository<UrlEntity, Long>, CrudRepository<UrlEntity, Long> {
 
-    List<UrlEntity> findByShortCode(@Param("shortCode") String shortCode);
+    Optional<UrlEntity> findByShortCode(@Param("shortCode") String shortCode);
 
     @Transactional
     <S extends UrlEntity> S save(S entity);
