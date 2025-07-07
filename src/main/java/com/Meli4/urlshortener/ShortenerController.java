@@ -45,7 +45,7 @@ public class ShortenerController {
 
         UrlEntityStats stats = urlEntityService.getUrlWithAnalytics(code);
         if(stats == null) {
-            return ResponseEntity.notFound().build(); // or create empty stats
+            return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok().body(stats);
