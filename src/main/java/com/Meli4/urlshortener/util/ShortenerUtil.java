@@ -1,20 +1,14 @@
-package com.Meli4.urlshortener;
+package com.Meli4.urlshortener.util;
 
 import com.Meli4.urlshortener.urlEntity.UrlEntity;
-import com.Meli4.urlshortener.urlEntity.UrlEntityRepository;
-import org.apache.logging.log4j.LogManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
-import java.util.Random;
 
 public class ShortenerUtil {
 
