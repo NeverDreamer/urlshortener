@@ -65,7 +65,7 @@ public class JwtUtil {
 
     private static Claims getAllClaims(String token){
         return Jwts.parser()
-                .decryptWith((SecretKey) getSigningKey())
+                .verifyWith((SecretKey) getSigningKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
