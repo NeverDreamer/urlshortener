@@ -26,6 +26,8 @@ public class User implements UserDetails {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
+    public User(){}
+
     public long getId(){
         return id;
     }

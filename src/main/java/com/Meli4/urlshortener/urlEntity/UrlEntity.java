@@ -21,6 +21,8 @@ public class UrlEntity {
     @JsonIgnore
     private UrlEntityStats stats;
 
+    public UrlEntity(){}
+
     public long getId(){
         return id;
     }
