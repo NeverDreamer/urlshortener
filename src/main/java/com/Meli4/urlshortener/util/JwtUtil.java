@@ -6,7 +6,9 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
@@ -16,8 +18,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 public class JwtUtil {
-    @Value("${token.signing.key}")
-    private static String secretKey;
+    private static String secretKey = "+FUIncwvaKMAfuQGFdy/o9TQUO7rtmPxNWcFa/SOsrk=";
     private static long jwtExpiration = 144000000; //100000 * 60 * 24
 
     public static String generateToken(UserDetails userDetails){

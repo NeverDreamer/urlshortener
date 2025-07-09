@@ -41,7 +41,7 @@ public class LoginService {
             username = userService.getByEmail(requestUsername).getUsername();
         }
 
-        if(userService.getByUsername(requestUsername) == null || userService.getByEmail(requestUsername) == null){
+        if(userService.getByUsername(requestUsername) == null && userService.getByEmail(requestUsername) == null){
             throw new RuntimeException("No user found!");
         }
 

@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 public class ShortenerController {
-
     @Autowired
     private UrlEntityRepository urlEntityRepository;
     @Autowired

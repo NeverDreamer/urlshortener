@@ -28,12 +28,12 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User getByUsername(String username){
-        return userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User with such username doesn't exist"));
+        return userRepository.findByUsername(username).orElse(null);
     }
 
     @Transactional(readOnly = true)
     public User getByEmail(String email){
-        return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User with such email doesn't exist"));
+        return userRepository.findByEmail(email).orElse(null);
     }
 
     public UserDetailsService getUserDetails(){
