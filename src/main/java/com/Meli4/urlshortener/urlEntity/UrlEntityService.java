@@ -72,19 +72,18 @@ public class UrlEntityService {
     }
 
     private String generateHash(){
-        StringBuilder hashCode = new StringBuilder();
-        char[] chars = CHARACTERS.toCharArray();
-        for(int i = 0; i < 7; i++){
-            hashCode.append(chars[rand.nextInt(chars.length)]);
-        }
+        String hash = "";
+        do{
+            StringBuilder hashCode = new StringBuilder();
+            char[] chars = CHARACTERS.toCharArray();
+            for(int i = 0; i < 7; i++){
+                hashCode.append(chars[rand.nextInt(chars.length)]);
+            }
 
-        String hash = hashCode.toString();
-        if(urlEntityRepository.findByShortCode(hash).isPresent()){
-            return generateHash();
-        }
+            hash = hashCode.toString();
+        }while(urlEntityRepository.findByShortCode(hash).isPresent());
 
-
-        return hashCode.toString();
+        return hash;
     }
 
     public String generateUniqueHash(){

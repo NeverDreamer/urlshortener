@@ -1,7 +1,7 @@
 package com.Meli4.urlshortener.security.filter;
 
 import com.Meli4.urlshortener.security.user.UserService;
-import com.Meli4.urlshortener.util.JwtUtil;
+import com.Meli4.urlshortener.security.jwt.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +21,8 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private UserService userService;
+    @Autowired
+    private JwtService jwtService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -32,12 +34,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String token = authorization.substring(7); // Bearer ...
-        String username = JwtUtil.extractUsername(token);
+        String username = jwtService.extractUsername(token);
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = userService.getUserDetails().loadUserByUsername(username);
 
-            if(JwtUtil.isTokenValid(token, userDetails)){
+            if(jwtService.isTokenValid(token, userDetails)){
                 SecurityContext context = SecurityContextHolder.createEmptyContext();
 
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

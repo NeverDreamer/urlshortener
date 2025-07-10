@@ -5,7 +5,7 @@ import com.Meli4.urlshortener.security.requests.RegisterRequest;
 import com.Meli4.urlshortener.security.response.JwtTokenResponse;
 import com.Meli4.urlshortener.security.user.User;
 import com.Meli4.urlshortener.security.user.UserService;
-import com.Meli4.urlshortener.util.JwtUtil;
+import com.Meli4.urlshortener.security.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +21,8 @@ public class LoginService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtService jwtService;
 
     public JwtTokenResponse register(RegisterRequest request){
         User user = new User();
@@ -30,7 +32,7 @@ public class LoginService {
 
         userService.create(user);
 
-        return new JwtTokenResponse(JwtUtil.generateToken(user));
+        return new JwtTokenResponse(jwtService.generateToken(user));
     }
 
     public JwtTokenResponse login(LoginRequest request){
@@ -51,6 +53,6 @@ public class LoginService {
                 user.getUsername(),
                 request.getPassword()));
 
-        return new JwtTokenResponse(JwtUtil.generateToken(user));
+        return new JwtTokenResponse(jwtService.generateToken(user));
     }
 }
