@@ -5,10 +5,9 @@ import com.Meli4.urlshortener.security.requests.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 public class LoginController {
@@ -23,5 +22,10 @@ public class LoginController {
     @PostMapping("/api/auth/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         return ResponseEntity.ok(loginService.register(request));
+    }
+
+    @PostMapping("/api/auth/refresh")
+    public ResponseEntity<?> refresh(@RequestParam UUID refreshToken) {
+        return ResponseEntity.ok(loginService.refreshToken(refreshToken));
     }
 }

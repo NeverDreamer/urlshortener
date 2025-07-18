@@ -19,9 +19,9 @@ import java.util.function.Function;
 @Service
 public class JwtService {
     @Value("${token.signing.key}")
-    private static String secretKey;
-    @Value("${token.expiration}")
-    private static long jwtExpiration; //100000 * 60 * 24
+    private String secretKey;
+    @Value("${token.jwt.expiration}")
+    private long jwtExpiration; //100000 * 60 * 24
 
     public String generateToken(UserDetails userDetails){
         Map<String, Object> claims = new HashMap<>();
@@ -38,6 +38,7 @@ public class JwtService {
         return Jwts.builder()
                 .subject(userDetails.getUsername())
                     .claims(claims)
+                .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + jwtExpiration))
                 .signWith(getSigningKey())
                 .compact();
@@ -45,7 +46,9 @@ public class JwtService {
 
     public boolean isTokenValid(String token, UserDetails userDetails){
         String username = userDetails.getUsername();
-        return username.equals(extractUsername(token)) && !isTokenExpired(token);
+        return getAllClaims(token).getSubject().equals(username) &&
+                username.equals(extractUsername(token)) &&
+                !isTokenExpired(token);
     }
 
     public boolean isTokenExpired(String token){

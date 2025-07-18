@@ -1,5 +1,8 @@
 package com.Meli4.urlshortener.security.filter;
 
+import com.Meli4.urlshortener.security.refresh.RefreshToken;
+import com.Meli4.urlshortener.security.refresh.RefreshTokenRepository;
+import com.Meli4.urlshortener.security.user.User;
 import com.Meli4.urlshortener.security.user.UserService;
 import com.Meli4.urlshortener.security.jwt.JwtService;
 import jakarta.servlet.FilterChain;
@@ -7,6 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +20,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Date;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
